@@ -4,24 +4,231 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --foreground: #000;
+  scroll-behavior: smooth;
 }
 
 body {
   color: var(--foreground);
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
+  /* position: ; */
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+}
+
+.has-scroll::-webkit-scrollbar {
+  width: 8px;
+}
+
+.has-scroll::-webkit-scrollbar-thumb {
+  background: rgba(5, 38, 32, 0.6);
+  border-radius: 20px;
+}
+.has-scroll::-webkit-scrollbar-thumb:hover {
+  background: #052620;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(5, 38, 32, 0.6);
+  border-radius: 20px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #052620;
+}
+
+.has-scroll {
+  gap: 25px;
+  overflow-y: auto;
+  scroll-snap-type: y mandatory;
+  height: calc(100vh - 70px - 16px);
+  width: 100%;
+  display: grid;
+  padding-inline: 16px;
+  margin-top: 16px;
+  padding-bottom: 16px;
+  /* flex-wrap: wrap; */
+  align-content: start;
+  grid-template-columns: repeat(1, 1fr);
+}
+
+.scroll-child {
+  height: 215px;
+  scroll-snap-align: start;
+  justify-self: center;
+  margin-inline: auto;
+  width: 100%;
+  max-width: 340px;
+}
+
+@media (min-width: 540px) {
+  .has-scroll {
+    /* min-width: 230px; */
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 768px) {
+  .has-scroll {
+    /* min-width: 250px; */
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 1280px) {
+  .has-scroll {
+    /* min-width: 340px; */
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.gridmain {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 70px 1fr;
+}
+
+.gridchild1 {
+  grid-column: 1 / -1;
+  grid-row: 1 / 2;
+}
+.gridchild2 {
+  grid-column: 1 / -1;
+  grid-row: 2 / 3;
+}
+
+.deGrid {
+  grid-template-columns: 70px 1.5fr;
+}
+.desecondG {
+  display: none;
+}
+
+@media (min-width: 350px) {
+  .deGrid {
+    grid-template-columns: 40px 1.5fr 1fr;
+  }
+  .desecondG {
+    display: block;
+  }
+}
+
+.scrollparent {
+  height: 176px;
+  overflow-y: auto;
+  scroll-snap-type: y mandatory;
+  width: 100%;
+  max-width: 945px;
+}
+
+.scrollchild {
+  scroll-snap-align: start;
+}
+
+.verticalsscroll {
+  height: 100%;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  width: 100%;
+  /* margin-left: 15px; */
+}
+.verticalschild {
+  scroll-snap-align: start;
+  margin-bottom: 10px;
+}
+
+.verticalscroll {
+  height: 100%;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  width: 100%;
+  /* margin-left: 15px; */
+}
+.verticalchild {
+  scroll-snap-align: start;
+  margin-bottom: 10px;
+}
+
+.verticalscroll::-webkit-scrollbar {
+  height: 10px;
+}
+
+.verticalscroll::-webkit-scrollbar-button {
+  width: 10%;
+}
+
+.verticalscroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+.verticalscroll::-webkit-scrollbar-thumb {
+  background: rgba(5, 38, 32, 0.6);
+  border-radius: 20px;
+}
+.verticalscroll::-webkit-scrollbar-thumb:hover {
+  background: #052620;
+}
+
+@media (max-width: 360px) {
+  .verticalchild {
+    width: calc(100% + 30px);
+    height: 190px;
+  }
+}
+
+@media (min-width: 800px) {
+  .verticalscroll::-webkit-scrollbar-thumb {
+    background: transparent;
+  }
+  .verticalscroll::-webkit-scrollbar-thumb:hover {
+    background: transparent;
+  }
+  .verticalscroll::-webkit-scrollbar-thumb {
+    background: transparent;
+    border-radius: 20px;
+  }
+}
+
+.dashboardgrid {
+  display: grid;
+  grid-template-columns: 60px 1fr;
+}
+.asidegrid {
+  width: 60px;
+}
+
+@media (min-width: 640px) {
+  .dashboardgrid {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+  }
+  .asidegrid {
+    width: 180px;
+  }
+}
+
+@media (min-width: 376px) {
+  .cardgrid {
+    grid-template-columns: 1fr 1fr;
+    padding-inline: 0;
+  }
+}
+
+@media (min-width: 462px) {
+  .recommendedcard {
+    grid-template-columns: 1fr 1fr;
+    padding-inline: 0;
+  }
+  .recommedgrid {
+    max-height: 150px;
+    max-width: 280px;
   }
 }
