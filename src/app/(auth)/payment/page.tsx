@@ -1,10 +1,10 @@
-import AsideNavButton from "@/components/profile/navbar";
+import { ToastDemo } from "@/components/profile/navbar";
 import React from "react";
 
 const UserPayment = () => {
   return (
     <section>
-      <AsideNavButton />
+      <ToastDemo />
     </section>
   );
 };

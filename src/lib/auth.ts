@@ -1,8 +1,6 @@
 import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 
-import { wait } from "@/lib/utils/wait";
-
 export const { handlers, signIn, signOut, auth } = NextAuth({
   pages: {
     signIn: "/app/login",
@@ -14,8 +12,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         password: {},
       },
       authorize: async () => {
-        await wait();
-
         return {
           id: "1",
           fullName: "ahmed",
