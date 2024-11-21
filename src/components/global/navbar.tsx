@@ -1,14 +1,17 @@
 "use client";
+import clsx from "clsx";
+import Link from "next/link";
 import React, { useEffect } from "react";
 import { IoMdClose } from "react-icons/io";
 
 const navlinks = [
-  { name: "Home", link: "home" },
-  { name: "About", link: "about" },
-  { name: "Shop", link: "shop" },
-  { name: "Blog", link: "blog" },
-  { name: "Product", link: "product" },
-  { name: "Contact", link: "contact" },
+  { name: "Home", link: "#home" },
+  { name: "About", link: "#about" },
+  { name: "Shop", link: "#shop" },
+  { name: "Blog", link: "#blog" },
+  { name: "Product", link: "#product" },
+  { name: "Profile", link: "/app/profile/home" },
+  { name: "Sign Up", link: "signup" },
 ];
 
 type NavbarProps = {
@@ -42,13 +45,18 @@ const Navbar = ({ isOpen, setIsOpen }: NavbarProps) => {
       </div>
       <div className="pt-20 md:pt-0 p-4 md:p-0 md:flex md:justify-around">
         {navlinks.map((value) => (
-          <a
+          <Link
             key={value.link}
-            href="#"
-            className="block py-2 px-4 hover:bg-[#7373FF] md:hover:text-[#7373FF] md:hover:bg-transparent"
+            href={value.link}
+            className={clsx(
+              "block py-2 px-4 hover:bg-[#7373FF] md:hover:text-[#7373FF] md:hover:bg-transparent",
+              {
+                "sm:hidden": value.link === "signup",
+              }
+            )}
           >
             {value.name}
-          </a>
+          </Link>
         ))}
       </div>
     </section>
