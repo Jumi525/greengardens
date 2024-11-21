@@ -3,7 +3,7 @@ import { expand } from "dotenv-expand";
 import { z, ZodError } from "zod";
 
 const envSchema = z.object({
-  // AUTH_SECRET: z.string().min(1),
+  AUTH_SECRET: z.string().min(1),
   AUTH_TRUST_HOST: z.string().min(1),
 });
 

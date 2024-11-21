@@ -5,10 +5,13 @@ import { useForm } from "react-hook-form";
 import Loader from "@/components/uis/loader";
 import Image from "next/image";
 import logins from "../../../../public/asset/top-7-trends-in-soft-fruit.webp";
+// import { signIn } from "@/lib/queries";
 import { signIn } from "@/lib/queries";
+import { useRouter } from "next/navigation";
 
 const LoginPage = () => {
   const [submitError, setSubmitError] = useState("");
+  const router = useRouter();
 
   const {
     register,
@@ -21,7 +24,9 @@ const LoginPage = () => {
 
   const onSubmits = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    await signIn();
+    const res = await signIn();
+    console.log(res);
+    router.push("/app/products");
   };
 
   return (

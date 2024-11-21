@@ -1,35 +1,36 @@
 import NextAuth from "next-auth";
-import Credentials from "next-auth/providers/credentials";
+// import Credentials from "next-auth/providers/credentials";
+import CredentialsProvider from "next-auth/providers/credentials";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   pages: {
     signIn: "/app/login",
   },
   providers: [
-    Credentials({
+    CredentialsProvider({
+      name: "Email and Password",
       credentials: {
-        email: {},
-        password: {},
+        email: { label: "Email", type: "email" },
+        password: { label: "Password", type: "password" },
       },
-      authorize: async () => {
-        return {
-          id: "1",
-          fullName: "ahmed",
-          age: 18,
-          password: "123456",
-          email: "jumiklein@gmail.com",
-          createdAt: "2024-06-23 16:05:26.954952",
-          updatedAt: "2024-06-23 16:05:26.954952",
-        };
+      async authorize(credentials) {
+        const { email, password } = credentials;
+        console.log(email, password);
+        // Find user in the database
+
+        return { id: "12", email: "jumiklein525@gmail.com" };
       },
     }),
   ],
+  session: {
+    strategy: "jwt", // Use JWT tokens for session management
+  },
+
   callbacks: {
-    jwt({ token, user }) {
+    async jwt({ token, user }) {
       if (user) {
         token.id = user.id;
-        // @ts-expect-error error is expected
-        token.fullName = user.fullName;
+        token.email = user.email;
       }
       return token;
     },
