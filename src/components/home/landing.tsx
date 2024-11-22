@@ -29,10 +29,10 @@ const Landing = () => {
             <span className="text-green-700">vegetables</span>
           </h1>
           <p className="text-black/60 text-base">
-            `&quot; Experience the purity of naturew with our carefully selected
+            &quot; Experience the purity of nature with our carefully selected
             organic foods. Grown without synthetic pesticides or GMOs, our
-            products sre sustainable sourced to support a healthier lifestyle
-            and thriving planet `&quot;
+            products are sustainable sourced to support a healthier lifestyle
+            and thriving planet &quot;
           </p>
           <Link
             href={"/app/products"}

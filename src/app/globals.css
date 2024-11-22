@@ -58,7 +58,7 @@ body {
 }
 
 .scroll-child {
-  height: 260px;
+  height: 270px;
   scroll-snap-align: start;
   justify-self: center;
   margin-inline: auto;

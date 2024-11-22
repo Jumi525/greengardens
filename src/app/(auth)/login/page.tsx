@@ -5,32 +5,54 @@ import { useForm } from "react-hook-form";
 import Loader from "@/components/uis/loader";
 import Image from "next/image";
 import logins from "../../../../public/asset/top-7-trends-in-soft-fruit.webp";
-// import { signIn } from "@/lib/queries";
-import { signIn } from "@/lib/queries";
+import { actionLoginUser } from "@/lib/queries";
 import { useRouter } from "next/navigation";
+import { z } from "zod";
+import { LoginFormSchema } from "@/lib/types";
+import { useToast } from "@/hooks/use-toast";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 const LoginPage = () => {
-  const [submitError, setSubmitError] = useState("");
   const router = useRouter();
+  const { toast } = useToast();
+  const [submitError, setSubmitError] = useState("");
 
   const {
     register,
+    reset,
+    handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm({
+  } = useForm<z.infer<typeof LoginFormSchema>>({
     mode: "onChange",
-    // resolver: zodResolver(FormSchema),
-    defaultValues: { email: "", password: "" },
+    resolver: zodResolver(LoginFormSchema),
+    defaultValues: {
+      email: "",
+      password: "",
+    },
   });
 
-  const onSubmits = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const res = await signIn();
-    console.log(res);
+  const onSubmit = async ({
+    email,
+    password,
+  }: z.infer<typeof LoginFormSchema>) => {
+    const { error } = await actionLoginUser({
+      email,
+      password,
+    });
+    if (error) {
+      setSubmitError(error);
+      reset();
+      return;
+    }
+    toast({
+      title: "Success",
+      description: "You have succesfully login",
+    });
     router.push("/app/products");
   };
 
   return (
-    <section className="relative h-screen w-full grid place-content-center">
+    <section className="relative h-screen w-full flex justify-center items-center px-3">
       <Image
         src={logins}
         width={1024}
@@ -38,9 +60,8 @@ const LoginPage = () => {
         className="w-full h-screen -z-10 absolute top-0 bottom-0 left-0 right-0 object-cover bg-no-repeat"
       />
       <form
-        onSubmit={onSubmits}
-        className="rounded-lg bg-transparent/30 backdrop-blur-sm p-5 flex flex-col gap-3 w-full max-w-[500px]"
-        //   onSubmit={handleSubmit(onSubmit)}
+        onSubmit={handleSubmit(onSubmit)}
+        className="rounded-lg bg-transparent/30 backdrop-blur-md p-5 flex flex-col gap-3 w-full max-w-[600px]"
         onChange={() => {
           if (submitError) setSubmitError("");
         }}

@@ -1,6 +1,6 @@
 import NextAuth from "next-auth";
-// import Credentials from "next-auth/providers/credentials";
 import CredentialsProvider from "next-auth/providers/credentials";
+import { getUserByEmailAndPassword } from "./queries";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   pages: {
@@ -14,11 +14,17 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
-        const { email, password } = credentials;
-        console.log(email, password);
-        // Find user in the database
+        if (!credentials?.email || !credentials?.password) {
+          throw new Error("User not found / Wrong credentials");
+        }
+        const email = credentials?.email as string;
+        const password = credentials?.password as string;
+        const dbUser = await getUserByEmailAndPassword({ email, password });
+        if (!dbUser) {
+          throw new Error("No user with the provided email");
+        }
 
-        return { id: "12", email: "jumiklein525@gmail.com" };
+        return { ...dbUser, id: dbUser.id.toString() };
       },
     }),
   ],

@@ -3,26 +3,27 @@ import React, { useEffect, useState } from "react";
 import { IoMdClose } from "react-icons/io";
 import { cn } from "../../lib/utils/cn";
 import Link from "next/link";
+import { ArrowBigLeft, Home, Settings, User, Users2 } from "lucide-react";
 import {
-  ArrowBigLeft,
-  BookDown,
-  Home,
-  Settings,
-  User,
-  Users2,
-} from "lucide-react";
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "../ui/dialog";
 
 const navlinks = [
   { name: "Home", link: <Home />, href: "home" },
-  { name: "About", link: <Users2 />, href: "recommendation" },
-  { name: "Shop", link: <Home />, href: "revenue" },
-  { name: "Blog", link: <BookDown />, href: "bookings" },
-  { name: "Product", link: <User />, href: "feedback" },
-  { name: "Contact", link: <Settings />, href: "settings" },
+  { name: "Community", link: <Users2 />, href: "community" },
+  { name: "Shop", link: <Home />, href: "shop" },
+  { name: "Revenue", link: <User />, href: "revenue" },
+  { name: "Settings", link: <Settings />, href: "settings" },
 ];
 
 const AsideNavLink = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isActive, setIsActive] = useState("home");
   useEffect(() => {
     const handleClickOutside = (e: Event) => {
       const target = e.target as Element;
@@ -55,26 +56,86 @@ const AsideNavLink = () => {
         })}
       >
         {navlinks.map((value, index) => (
-          <Link
-            key={index}
-            href={`${value.href}`}
-            className={cn(
-              " p-1 border-2 border-solid flex items-center rounded-lg px-1 text-gray-900",
-              {
-                "border-green-900 hover:bg-[#7373FF]": !isOpen,
-                " hover:bg-[#7373FF] pl-2": isOpen,
-              }
+          <>
+            {value.href === "settings" ? (
+              <Dialog key={index}>
+                <DialogTrigger asChild>
+                  <button
+                    key={index}
+                    onClick={() => setIsActive(value.href)}
+                    className={cn(
+                      " p-1 border-2 border-solid flex items-center rounded-lg px-1 text-gray-900",
+                      {
+                        "border-green-900 hover:bg-[#7373FF]": !isOpen,
+                        " hover:bg-[#7373FF] pl-2": isOpen,
+                        "bg-[#7373FF]": isActive === value.href,
+                      }
+                    )}
+                  >
+                    {value.link}
+                    <p
+                      className={cn("pl-3 hidden", {
+                        block: isOpen,
+                      })}
+                    >
+                      {value.name}
+                    </p>
+                  </button>
+                </DialogTrigger>
+                <DialogContent>
+                  <DialogHeader>
+                    <DialogTitle>{value.name}</DialogTitle>
+                  </DialogHeader>
+                  <DialogDescription asChild>
+                    <form className="flex flex-col gap-2">
+                      <input
+                        placeholder="Full name"
+                        className="py-1 pl-2 border-2 border-solid border-black"
+                      />
+                      <input
+                        placeholder="Title"
+                        // value={state.workspaces.map}
+                        className="py-1 pl-2 border-2 border-solid border-black"
+                      />
+                      <input
+                        placeholder="Location"
+                        className="py-1 pl-2 border-2 border-solid border-black"
+                      />
+                      <button
+                        type="submit"
+                        className="bg-black py-2 w-full text-white rounded-md mt-auto mb-1"
+                      >
+                        Submit
+                      </button>
+                    </form>
+                  </DialogDescription>
+                </DialogContent>
+              </Dialog>
+            ) : (
+              <Link
+                key={index}
+                href={`${value.href}`}
+                onClick={() => setIsActive(value.href)}
+                className={cn(
+                  " p-1 border-2 border-solid flex items-center rounded-lg px-1 text-gray-900",
+                  {
+                    "border-green-900 hover:bg-[#7373FF]": !isOpen,
+                    " hover:bg-[#7373FF] pl-2": isOpen,
+                    "bg-[#7373FF]": isActive === value.href,
+                  }
+                )}
+              >
+                {value.link}
+                <p
+                  className={cn("pl-3 hidden", {
+                    block: isOpen,
+                  })}
+                >
+                  {value.name}
+                </p>
+              </Link>
             )}
-          >
-            {value.link}
-            <p
-              className={cn("pl-3 hidden", {
-                block: isOpen,
-              })}
-            >
-              {value.name}
-            </p>
-          </Link>
+          </>
         ))}
       </div>
     </section>

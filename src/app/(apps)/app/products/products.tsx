@@ -2,36 +2,23 @@
 import Link from "next/link";
 import React, { useState } from "react";
 import { Filter, HomeIcon, MousePointer2 } from "lucide-react";
-import Jobcard from "@/components/global/productCard";
-
 import { IoMdCart } from "react-icons/io";
 import { signOut } from "@/lib/queries";
-
-// const navlinks = [
-//   {
-//     href: "Location",
-//     link: <LocateFixed />,
-//   },
-//   {
-//     href: "Pay",
-//     link: <CircleDollarSign />,
-//   },
-//   {
-//     href: "Title",
-//     link: <Captions />,
-//   },
-//   {
-//     href: "Applicant",
-//     link: <Users />,
-//   },
-//   {
-//     href: "Time",
-//     link: <Timer />,
-//   },
-// ];
+import Carts from "@/components/products/carts";
+import ProductCard from "@/components/global/productCard";
+import { useFarmState } from "@/lib/farmerProvider";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 const Jobpages = () => {
-  const [profileJob] = useState([
+  const [isOpen, setIsOpen] = useState(false);
+  const { state } = useFarmState();
+  console.log(state);
+  const [product] = useState([
     {
       price: 200,
       title: "Orange",
@@ -76,11 +63,19 @@ const Jobpages = () => {
 
   return (
     <main className="gridmain bg-[#9A8499]/50">
-      <section className="bg-[#052620] py-4 items-center gap-2 flex justify-between px-[16px] gridchild1">
-        <Filter
-          className="h-[35px] w-[35px] p-2 min-w-max bg-[#EAD494]/90 rounded-full"
-          onClick={() => signOut()}
-        />
+      <section className="bg-green-900 py-4 items-center gap-2 flex justify-between px-[16px] gridchild1">
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Filter className="h-[35px] w-[35px] p-2 min-w-max bg-[#737373] rounded-full cursor-pointer" />
+          </DropdownMenuTrigger>
+          <DropdownMenuContent>
+            <DropdownMenuItem className="cursor-pointer">
+              Price
+            </DropdownMenuItem>
+            <DropdownMenuItem className="cursor-pointer">Name</DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+
         <form className=" outline-none w-full max-w-[300px] sm:max-w-[350px] rounded-full bg-[#9A8499]/20 focus-within:outline-[#EAD494] py-[3px] pl-4 pr-1 gap-2 flex items-center">
           <input
             placeholder="Search"
@@ -91,15 +86,33 @@ const Jobpages = () => {
           </button>
         </form>
         <div className="flex space-x-2">
-          <Link href={"/app/profile"}>
-            <HomeIcon className="h-[35px] w-[35px] p-2 min-w-max bg-[#EAD494]/90  rounded-full" />
-          </Link>
-          <IoMdCart className="h-[35px] w-[35px] p-2 min-w-max bg-[#EAD494]/90  rounded-full" />
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <HomeIcon className="h-[35px] cursor-pointer w-[35px] p-2 min-w-max bg-[#737373]  rounded-full hover:bg-[#737399]" />
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <DropdownMenuItem
+                onClick={() => signOut()}
+                className="cursor-pointer"
+              >
+                Log out
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild className="cursor-pointer">
+                <Link href={"/app/profile/home"}>Profile</Link>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+
+          <IoMdCart
+            onClick={() => setIsOpen(!isOpen)}
+            className="h-[35px] w-[35px] p-2 min-w-max bg-[#737373] cursor-pointer rounded-full"
+          />
         </div>
       </section>
+      <Carts isOpen={isOpen} setIsOpen={setIsOpen} />
       <section className="gridchild2 has-scroll">
-        {profileJob.map((val, index) => (
-          <Jobcard
+        {product.map((val, index) => (
+          <ProductCard
             key={index}
             price={val.price}
             title={val.title}
@@ -112,13 +125,3 @@ const Jobpages = () => {
 };
 
 export default Jobpages;
-
-// import {
-//   Captions,
-//   CircleDollarSign,
-//   HomeIcon,
-//   LocateFixed,
-//   MousePointer2,
-//   Timer,
-//   Users,
-// } from "lucide-react";

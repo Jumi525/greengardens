@@ -7,7 +7,7 @@ type JobcardProps = {
   image: string;
 };
 
-const Jobcard = ({ image, price, title }: JobcardProps) => {
+const ProductCard = ({ image, price, title }: JobcardProps) => {
   return (
     <section className="scroll-child relative bg-green-300/30 flex justify-center items-center rounded-lg">
       <Image
@@ -30,4 +30,4 @@ const Jobcard = ({ image, price, title }: JobcardProps) => {
   );
 };
 
-export default Jobcard;
+export default ProductCard;
