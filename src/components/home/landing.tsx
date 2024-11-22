@@ -18,6 +18,15 @@ import tes3 from "../../../public/asset/testimonial-2.jpg";
 import { Star } from "lucide-react";
 import Link from "next/link";
 
+const Trusted = [
+  "/asset/partner-1.png",
+  "/asset/partner-2.png",
+  "/asset/partner-3.png",
+  "/asset/partner-4.png",
+  "/asset/partner-5.png",
+  "/asset/partner-6.png",
+];
+
 const Landing = () => {
   return (
     <main>
@@ -122,6 +131,24 @@ const Landing = () => {
             </button>
           </div>
         </section>
+      </section>
+      <section className="py-7 bg-green-400 text-white">
+        <p className=" mx-auto max-w-max py-4 ">-- Organic Foods --</p>
+        <h2 className="mx-auto max-w-max font-bold text-3xl md:text-4xl pb-4">
+          Trusted Partners
+        </h2>
+        <div className="verticalscroll flex gap-6 px-7">
+          {Trusted.map((value, index) => (
+            <Image
+              key={index}
+              src={value}
+              alt="fresh"
+              width={200}
+              height={200}
+              className="verticalchild flex-shrink-0 w-48 py-2"
+            />
+          ))}
+        </div>
       </section>
       <section className="px-4 py-7 w-full">
         <p className="text-green-400 mx-auto max-w-max ">Ratings</p>

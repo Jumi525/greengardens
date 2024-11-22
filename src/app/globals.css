@@ -135,7 +135,6 @@ body {
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   width: 100%;
-  /* margin-left: 15px; */
 }
 .verticalschild {
   scroll-snap-align: start;
@@ -155,11 +154,11 @@ body {
 }
 
 .verticalscroll::-webkit-scrollbar {
-  height: 10px;
+  height: 8px;
 }
 
 .verticalscroll::-webkit-scrollbar-button {
-  width: 10%;
+  width: 15%;
 }
 
 .verticalscroll::-webkit-scrollbar-track {
@@ -168,12 +167,13 @@ body {
 .verticalscroll::-webkit-scrollbar-thumb {
   background: rgba(5, 38, 32, 0.6);
   border-radius: 20px;
+  border: 1px solid white;
 }
 .verticalscroll::-webkit-scrollbar-thumb:hover {
   background: #052620;
 }
 
-@media (max-width: 360px) {
+/* @media (max-width: 360px) {
   .verticalchild {
     width: calc(100% + 30px);
     height: 190px;
@@ -191,7 +191,7 @@ body {
     background: transparent;
     border-radius: 20px;
   }
-}
+} */
 
 .dashboardgrid {
   display: grid;
