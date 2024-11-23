@@ -6,7 +6,6 @@ import { IoMdCart } from "react-icons/io";
 import { signOut } from "@/lib/queries";
 import Carts from "@/components/products/carts";
 import ProductCard from "@/components/global/productCard";
-import { useFarmState } from "@/lib/farmerProvider";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -16,48 +15,54 @@ import {
 
 const Jobpages = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const { state } = useFarmState();
-  console.log(state);
   const [product] = useState([
     {
-      price: 200,
+      price: 300,
       title: "Orange",
       image: "/asset/product-1.png",
+      quantity: 5,
     },
     {
-      price: 200,
-      title: "Orange",
+      price: 500,
+      title: "Lemon",
       image: "/asset/product-2.png",
+      quantity: 5,
     },
     {
       price: 200,
-      title: "Orange",
+      title: "Watermelon",
       image: "/asset/product-3.png",
+      quantity: 6,
     },
     {
-      price: 200,
-      title: "Orange",
+      price: 900,
+      title: "Strawberry",
       image: "/asset/product-4.png",
+      quantity: 8,
     },
     {
-      price: 200,
-      title: "Orange",
+      price: 800,
+      title: "Kiwi",
       image: "/asset/product-5.png",
+      quantity: 9,
     },
     {
       price: 200,
-      title: "Orange",
+      title: "Onion",
       image: "/asset/product-6.png",
+      quantity: 3,
     },
     {
       price: 200,
-      title: "Orange",
+      title: "Lectuce",
       image: "/asset/product-7.png",
+      quantity: 2,
     },
     {
-      price: 200,
-      title: "Orange",
+      price: 100,
+      title: "Spinach",
       image: "/asset/product-8.png",
+      quantity: 3,
     },
   ]);
 
@@ -114,9 +119,11 @@ const Jobpages = () => {
         {product.map((val, index) => (
           <ProductCard
             key={index}
+            id={(index + 1).toString()}
             price={val.price}
             title={val.title}
             image={val.image}
+            quantity={val.quantity}
           />
         ))}
       </section>

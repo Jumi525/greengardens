@@ -4,6 +4,8 @@ import { usePathname } from "next/navigation";
 import React, { useState } from "react";
 import CommunityCard from "@/components/profile/communityCard";
 import Produce from "@/components/profile/Produce";
+import { ArrowLeft } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 type HomeProps = {
   id: string;
@@ -17,15 +19,22 @@ type HomeProps = {
 
 const Dashboardpage = () => {
   const paths = usePathname();
+  const router = useRouter();
   const path = paths.split("profile")[1].split("/")[1];
   const [home] = useState<HomeProps>([]);
 
   return (
     <>
+      <ArrowLeft
+        className="absolute ml-3 border-2 border-solid border-[#7373FF] rounded-md hover:bg-[#7373FF]"
+        onClick={() => router.push("/app/products")}
+      />
       {path === "home" && (
         <>
           <section className="p-4 max-w-[1090px] mx-auto">
-            <h1 className="font-bold text-3xl pt-6 pb-3 ">{"hellos"}</h1>
+            <h1 className="font-bold text-3xl pt-6 pb-3 text-green-900 ">
+              {"Ahmed"}
+            </h1>
 
             <div className="grid grid-cols-1 cardgrid md:grid-cols-4 gap-3 justify-center px-2">
               <DashboardCard title="Revenue" heading={"0"} increase="+10%" />
@@ -43,7 +52,7 @@ const Dashboardpage = () => {
             </div>
           </section>
           <section>
-            <section className="deGrid items-center rounded-lg mx-auto text-center mb-4 grid sm:grid-cols-[70px_1.5fr_1fr_1fr_150px] max-w-[945px] bg-[#052620]/50 h-11">
+            <section className="deGrid items-center rounded-lg mx-auto text-center mb-4 grid sm:grid-cols-[70px_1.5fr_1fr_1fr_150px] max-w-[945px] bg-green-500 h-11">
               <p>Id</p>
               <p>Title</p>
               <p className="block desecondG">Date</p>
@@ -66,7 +75,7 @@ const Dashboardpage = () => {
       {path === "community" && <CommunityCard />}
       {path === "shop" && <Produce />}
       {path === "revenue" && (
-        <section className="flex items-center justify-center h-full">
+        <section className="flex items-center justify-center h-full pt-8">
           No Revenue
         </section>
       )}

@@ -11,7 +11,7 @@ const Produce = () => {
   const price = useRef<HTMLInputElement>(null);
   console.log(publicIds);
   return (
-    <section className="grid grid-rows-[50px_1fr] gap-2 relative px-3 h-screen">
+    <section className="grid grid-rows-[50px_1fr] gap-2 relative px-3 h-screen pt-8">
       <button onClick={() => setClose(!close)} className="bg-green-400">
         Upload A produce
       </button>

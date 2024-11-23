@@ -59,6 +59,6 @@ export type ProduceSchema = {
   id: string;
   photoId: string;
   name: string;
-  price: string;
+  price: number;
   quantity: number;
 };

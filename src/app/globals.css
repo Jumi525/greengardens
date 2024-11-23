@@ -119,7 +119,8 @@ body {
 }
 
 .scrollparent {
-  height: 176px;
+  /* height: 176px; */
+  height: 100vh;
   overflow-y: auto;
   scroll-snap-type: y mandatory;
   width: 100%;

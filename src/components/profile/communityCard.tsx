@@ -3,16 +3,16 @@ import React, { useState } from "react";
 
 const CommunityCard = () => {
   const [recommended] = useState([
-    { title: "hello", location: "here" },
-    { title: "hello", location: "here" },
-    { title: "hello", location: "here" },
-    { title: "hello", location: "here" },
-    { title: "hello", location: "here" },
-    { title: "hello", location: "here" },
+    { title: "Ahmed", location: "lagos" },
+    { title: "Thompson", location: "abuja" },
+    { title: "Elon", location: "benin" },
+    { title: "Success", location: "ekiti" },
+    { title: "Gabiel", location: "akure" },
+    { title: "Precious", location: "warri" },
   ]);
   return (
-    <section className="w-full h-full px-2">
-      <p className="mt-0">Farmers Community</p>
+    <section className="w-full pt-8 h-full px-2">
+      <p className="mt-0 mb-2 text-center">Farmers Community</p>
       <div
         className={clsx(
           "grid grid-cols-1  md:grid-cols-3 lg:grid-cols-4 gap-3 justify-center px-2",
@@ -26,7 +26,7 @@ const CommunityCard = () => {
           recommended.map((value, index) => (
             <div
               key={index}
-              className="bg-[#9A845C]/50 recommedgrid flex flex-col gap-2 text-left px-3 rounded-lg py-3 h-full"
+              className="bg-green-300 recommedgrid flex flex-col gap-2 text-left px-3 rounded-lg py-3 h-full"
             >
               <p>
                 Fullname: <span>{value.title}</span>
@@ -38,11 +38,11 @@ const CommunityCard = () => {
               <p>
                 Title:{" "}
                 <span className="px-2 py-1 border-2 border-black border-solid rounded-full">
-                  {"now"}
+                  {"farmer"}
                 </span>
               </p>
               <p className="text-sm">
-                Email: <span>{"now"}</span>
+                Email: <span>{`${value.title}@gmail.com`}</span>
               </p>
             </div>
           ))

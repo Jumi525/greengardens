@@ -29,16 +29,16 @@ type Action =
       payload: { produce: ProduceSchema };
     }
   | {
-      type: "ADD_TO_CART";
-      payload: { produceId: string; produce: ProduceSchema; farmerId: string };
+      type: "ADD_CART";
+      payload: { produce: ProduceSchema };
     }
   | {
       type: "INC_CART";
-      payload: { produceId: string; produce: ProduceSchema; farmerId: string };
+      payload: { produceId: string; produce: ProduceSchema; price?: number };
     }
   | {
       type: "DEC_CART";
-      payload: { produceId: string; produce: ProduceSchema; farmerId: string };
+      payload: { produceId: string; produce: ProduceSchema };
     };
 
 const initialState: FarmState = {
@@ -79,69 +79,52 @@ const farmReducer = (
           product: [...state.workspaces.product, action.payload.produce],
         },
       };
-    // case "ADD_TO_CART":
-    //   return {
-    //     ...state,
-    //     workspaces: state.workspaces.map((farmers) => {
-    //       if (farmers.id === action.payload.farmerId) {
-    //         return {
-    //           ...farmers,
-    //           produce: farmers.product.map((produce) => {
-    //             if (produce.id === action.payload.produceId) {
-    //               return {
-    //                 ...produce,
-    //                 produceNo: produce.quantity + 1,
-    //               };
-    //               return produce;
-    //             }
-    //           }),
-    //         };
-    //       }
-    //       return farmers;
-    //     }),
-    //   };
-    // case "INC_CART":
-    //   return {
-    //     ...state,
-    //     workspaces: state.workspaces.map((farmers) => {
-    //       if (farmers.id === action.payload.farmerId) {
-    //         return {
-    //           ...farmers,
-    //           produce: farmers.product.map((produce) => {
-    //             if (produce.id === action.payload.produceId) {
-    //               return {
-    //                 ...produce,
-    //                 produceNo: produce.quantity + 1,
-    //               };
-    //               return produce;
-    //             }
-    //           }),
-    //         };
-    //       }
-    //       return farmers;
-    //     }),
-    //   };
-    // case "DEC_CART":
-    //   return {
-    //     ...state,
-    //     workspaces: state.workspaces.map((farmers) => {
-    //       if (farmers.id === action.payload.farmerId) {
-    //         return {
-    //           ...farmers,
-    //           produce: farmers.product.map((produce) => {
-    //             if (produce.id === action.payload.produceId) {
-    //               return {
-    //                 ...produce,
-    //                 produceNo: produce.quantity + 1,
-    //               };
-    //               return produce;
-    //             }
-    //           }),
-    //         };
-    //       }
-    //       return farmers;
-    //     }),
-    //   };
+    case "ADD_CART":
+      return {
+        ...state,
+        workspaces: {
+          ...state.workspaces,
+          product: [...state.workspaces.product, action.payload.produce],
+        },
+      };
+    case "INC_CART":
+      return {
+        ...state,
+        workspaces: {
+          ...state.workspaces,
+          product:
+            state.workspaces.product.length > 0
+              ? state.workspaces.product.map((product) => {
+                  console.log(product.quantity);
+                  if (product.id === action.payload.produceId)
+                    return {
+                      ...product,
+                      quantity: product.quantity + 1,
+                      price: 300 * (product.quantity + 1),
+                    };
+                  return product;
+                })
+              : [...state.workspaces.product, action.payload.produce],
+        },
+      };
+    case "DEC_CART":
+      return {
+        ...state,
+        workspaces: {
+          ...state.workspaces,
+          product: state.workspaces.product
+            .filter((produce) => produce.quantity > 0)
+            .map((product) => {
+              if (product.id === action.payload.produceId)
+                return {
+                  ...product,
+                  quantity: product.quantity - 1,
+                  price: product.price - 300,
+                };
+              return product;
+            }),
+        },
+      };
     default:
       return initialState;
   }
