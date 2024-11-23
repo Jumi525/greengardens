@@ -29,7 +29,7 @@ import Jobpages from "./products";
 
 const Jobpage = async () => {
   const user = await auth();
-  if (!user?.user) redirect("/");
+  if (!user?.user) redirect("/login");
   return (
     <main className="gridmain bg-[#9A8499]/50">
       <Jobpages />

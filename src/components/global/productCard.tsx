@@ -16,7 +16,7 @@ const ProductCard = ({ image, price, title, id, quantity }: JobcardProps) => {
   const [click, setClick] = useState(0);
   return (
     <section className="scroll-child relative bg-green-300/30 flex justify-center items-center rounded-lg">
-      <p className="absolute top-0 bottom-0 left-0 right-0 grid place-content-center rounded-full bg-green-700 h-8 w-8 text-black">
+      <p className="absolute top-2 bottom-2 left-0 right-0 grid place-content-center rounded-full bg-green-700 h-8 w-8 text-black">
         {quantity}
       </p>
       <Image
